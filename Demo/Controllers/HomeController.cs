@@ -2,10 +2,8 @@
 using Demo.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Demo.Controllers
@@ -14,27 +12,40 @@ namespace Demo.Controllers
     {
         private readonly CallApi _callApi = new CallApi();
         HttpResponseMessage _resMsg;
-        public async Task< ActionResult> Index()
+        public async Task<ActionResult> Index()
+
         {
-            _resMsg = await _callApi.client.PostAsJsonAsync("api/GetValues","some");
-            var result = _resMsg.Content.ReadAsAsync<ApiReturn>().Result;
-            var vm = new Check();
-            vm.Data = result.ApiData;
-            return View(vm);
+            var vm =new List<Post>();
+            try
+            {
+                _resMsg = await _callApi.client.PostAsJsonAsync("api/Post/GetAll", "Some");
+                var resultObj = _resMsg.Content.ReadAsAsync<List<Post>>().Result;
+                vm = resultObj;
+                return View(vm);
+            }
+            catch (Exception ex)
+            {
+                return View(vm);
+            }
         }
 
-        public ActionResult About()
+        public async Task<ActionResult> Report()
         {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
+            var vm = new ReportModel();
+            try
+            {
+                var userName = Session["userName"].ToString();
+                _resMsg = await _callApi.client.PostAsJsonAsync("api/Post/GetReport",userName);
+                var resultObj = _resMsg.Content.ReadAsAsync<ReportModel>().Result;
+                vm = resultObj;
+                return View(vm);
+            }
+            catch (Exception ex)
+            {
+                return View(vm);
+            }      
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

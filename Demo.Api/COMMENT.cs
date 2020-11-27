@@ -16,9 +16,10 @@ namespace Demo.Api
     {
         public int COMMENT_ID { get; set; }
         public Nullable<int> POST_ID { get; set; }
-        public Nullable<int> USER_ID { get; set; }
+        public string USER_ID { get; set; }
         public Nullable<int> LIKE_COUNT { get; set; }
         public Nullable<int> DISLIKE_COUNT { get; set; }
         public Nullable<System.DateTimeOffset> COMMENT_TIME { get; set; }
+        public string COMMNET_CONTENT { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace Demo.Api
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class StationEntity : DbContext
+    public partial class StationContext : DbContext
     {
-        public StationEntity()
-            : base("name=StationEntity")
+        public StationContext()
+            : base("name=StationContext")
         {
         }
     

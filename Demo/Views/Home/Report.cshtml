@@ -1,0 +1,51 @@
+﻿@model Demo.ViewModels.ReportModel
+
+@{
+    ViewBag.Title = "Report";
+    var i = 0;
+}
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<div class="container">
+    <h4></h4>
+    <hr />
+
+    @foreach (var post in Model.Posts)
+    {
+        i++;
+        <table style="width:100%" class="=table table-striped">
+            <tr>
+                <th>@post.Post_Content</th>
+                <th>Admin</th>
+                <th>@post.Post_Time.LocalDateTime.ToShortDateString()</th>
+                <th>@post.CommentList.Count()</th>
+            </tr>
+
+            <tr>
+
+                @foreach (var Comment in post.CommentList)
+                {
+
+                    <td width="25%">@Comment.Comment_Content</td>
+                    <td  width="25%">@Comment.User_Id</td>
+                    <td width="25%">@Comment.Comment_Time.LocalDateTime.ToShortDateString()</td>
+                    <td width="25%">Like  @Comment.Like_count Dislike @Comment.Dislike_Count</td>
+
+                }
+
+            </tr>
+        </table>
+        <hr />
+    }
+</div>
+<p>
+
+</p>

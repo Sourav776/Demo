@@ -17,7 +17,7 @@ namespace Demo.Controllers
         public ActionResult LogIn(string userName)
         {
             Session["userName"] = userName;
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Report","Home");
         }
     }
 }
