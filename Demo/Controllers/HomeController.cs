@@ -36,6 +36,7 @@ namespace Demo.Controllers
             try
             {
                 var userName = Session["userName"].ToString();
+                if (string.IsNullOrEmpty(userName)) return RedirectToAction("Index", "LogGate");
                 _resMsg = await _callApi.client.PostAsJsonAsync("api/Post/GetReport",userName);
                 var resultObj = _resMsg.Content.ReadAsAsync<ReportModel>().Result;
                 vm = resultObj;
